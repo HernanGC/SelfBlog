@@ -2,23 +2,44 @@ body {
     font-family: sans-serif;
     background-color: #e6edf3;
 }
+div#root {
+    display: flex;
+    align-items: flex-start;
+}
 .logo {
     margin: 0 auto 0 0;
 }
 .container {
-    border: 1px solid #1e3549;
+    padding: 1rem 2rem 2rem 2rem;
+    /* border: 1px solid #1e3549; */
 }
 .align-center {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+
 }
 .blog-post {
-    width: 50rem;
-    border: 1px solid #1e3549;
-    padding: 1rem
+    /* border: 1px solid #1e3549; */
+    border-radius: 8px;
+    background-color: aliceblue;
+    padding: 1rem;
+    width: 28%;
+    display: inline-block;
+    margin: 0 1rem 1rem 0;
+    box-shadow: 0 10px 10px 0 rgb(0 0 0 / 8%), 0 6px 8px 0 rgb(0 0 0 / 10%);
+    transition: 0.3s;
+}
+.blog-post:hover {
+    transform: scale(0.9);
+    cursor: pointer;
 }
 #footer {
     display: flex;
     justify-content: center;
+}
+.side-container {
+    width: 10%;
+}
+.main-container {
+    /* display: flex; */
+    width: 85%;
+    /* padding: 1rem 2rem 2rem 2rem; */
 }

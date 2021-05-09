@@ -1,6 +1,6 @@
 ul {
     list-style-type: none;
-    background-color: red;
+    background-color: #e6edf3;
     display: flex;
     justify-content: flex-end;
 }
@@ -9,9 +9,10 @@ li {
     margin: 0 1rem 0 1rem;
 }
 ul > li:hover {
-    background-color: orangered;
+    background-color: #d2dce6;
     cursor: pointer;
 }
-li > a {
+a {
     text-decoration: none;
+    color: #000;
 }

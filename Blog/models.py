@@ -34,6 +34,9 @@ class Post(models.Model):
     def __str__(self):
         return f'{self.title} - {self.author.first_name}'
 
+    def get_content(self):
+        return self.content if len(self.content) < 300 else f'{self.content[:300]}...'
+
 
 class Page(models.Model):
     name = models.CharField(max_length=15)

@@ -6,3 +6,10 @@ def navbar_items(request):
     return {
         'items': navbar
     }
+
+
+def sidebar_items(request):
+    content = models.Post.objects.filter(author=models.BaseUser.objects.get(user=request.user))
+    return {
+        'content': content
+    }
