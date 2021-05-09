@@ -26,5 +26,12 @@ def index(request: HttpRequest) -> HttpResponse:
         return render_4xx(request)
 
 
+def details(request: HttpRequest, post_id: int):
+    context = {}
+    post = Post.objects.get(pk=post_id)
+    context['item'] = post
+    return render(request, 'blog/details.html', context)
+
+
 def render_4xx(request: HttpRequest, message: str = 'The request could not be processed, please try again later.') -> HttpResponse:
-    return render(request, '4xx_error.html', {'message': message})
+    return render(request, 'error/4xx_error.html', {'message': message})

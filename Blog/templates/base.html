@@ -12,17 +12,17 @@
     <title>Blog | {{ page_data.page_title }}</title>
 </head>
 <body>
-{% include 'navbar.html' %}
+{% include 'components/navbar.html' %}
 <div id="root">
     <div class="container side-container">
-        {% include 'side-content.html' %}
+        {% include 'components/side-content.html' %}
     </div>
     <div class="container main-container">
         {% block content %} {% endblock %}
     </div>
 </div>
 
-{% include 'footer.html' %}
+{% include 'components/footer.html' %}
 <script src="{% static 'js/index.js' %}"></script>
 {% block script %} {% endblock %}
 </body>

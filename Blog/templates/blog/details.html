@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if content %}
+        <p>{{ item.title }}</p>
+        <p>{{ item.content }}</p>
+        <p>{{ item.author }}</p>
+        <button>Edit</button>
+        <button>Delete</button>
+    {% endif %}
+{% endblock %}
