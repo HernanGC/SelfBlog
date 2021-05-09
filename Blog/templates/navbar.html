@@ -1,0 +1,10 @@
+<div id="navbar">
+    <ul>
+        <li class="logo"><a href="">Blog</a></li>
+        {% if items %}
+            {% for item in items %}
+            <li><a href="">{{ item.name }}</a></li>
+            {% endfor %}
+        {% endif %}
+    </ul>
+</div>

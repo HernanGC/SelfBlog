@@ -1,0 +1,24 @@
+body {
+    font-family: sans-serif;
+    background-color: #e6edf3;
+}
+.logo {
+    margin: 0 auto 0 0;
+}
+.container {
+    border: 1px solid #1e3549;
+}
+.align-center {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.blog-post {
+    width: 50rem;
+    border: 1px solid #1e3549;
+    padding: 1rem
+}
+#footer {
+    display: flex;
+    justify-content: center;
+}
