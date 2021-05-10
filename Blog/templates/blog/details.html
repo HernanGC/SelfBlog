@@ -4,7 +4,7 @@
         <p>{{ item.title }}</p>
         <p>{{ item.content }}</p>
         <p>{{ item.author }}</p>
+        <button onclick="deletePost('{% url 'delete' item.id %}', '{% url 'index' %}')">Delete</button>
         <button>Edit</button>
-        <button>Delete</button>
     {% endif %}
 {% endblock %}

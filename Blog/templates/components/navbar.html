@@ -1,6 +1,6 @@
 <div id="navbar">
     <ul>
-        <li class="logo"><a href="">Blog</a></li>
+        <li class="logo" onclick="location.href='{% url 'index' %}'">Blog</li>
         {% if items %}
             {% for item in items %}
             <li><a href="">{{ item.name }}</a></li>
