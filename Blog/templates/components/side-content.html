@@ -1,0 +1,5 @@
+{% if content %}
+    {% for item in content %}
+        <a href="{% url 'details' item.id %}"><p class="side-item">{{ item.title }}</p></a>
+    {% endfor %}
+{% endif %}

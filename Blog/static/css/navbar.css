@@ -1,0 +1,18 @@
+ul {
+    list-style-type: none;
+    background-color: #e6edf3;
+    display: flex;
+    justify-content: flex-end;
+}
+li {
+    padding: 1rem;
+    margin: 0 1rem 0 1rem;
+}
+ul > li:hover {
+    background-color: #d2dce6;
+    cursor: pointer;
+}
+a {
+    text-decoration: none;
+    color: #000;
+}

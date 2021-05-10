@@ -1,0 +1,8 @@
+p.side-item {
+    padding: 10px 1rem 10px 1rem;
+    margin: 0;
+}
+p.side-item:hover {
+    background-color: #d2dce6;
+    cursor: pointer;
+}
