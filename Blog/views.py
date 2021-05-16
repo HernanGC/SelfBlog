@@ -37,6 +37,9 @@ def details(request: HttpRequest, post_id: int):
     return render(request, 'blog/details.html', context)
 
 
+def new(request):
+    return HttpResponse('OK')
+
 @csrf_protect
 def delete(request: HttpRequest, post_id: int):
     if request.method == 'POST' and request.headers['X-Csrftoken'] and 'csrftoken' in request.headers['Cookie']:

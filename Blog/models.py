@@ -5,9 +5,9 @@ from django.contrib.auth.models import User
 class BaseUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=25, null=True)
-    second_name = models.CharField(max_length=25)
-    first_last_name = models.CharField(max_length=25, null=True)
-    second_last_name = models.CharField(max_length=25)
+    second_name = models.CharField(max_length=25, null=True, blank=True, default='')
+    first_last_name = models.CharField(max_length=25, null=True, blank=True, default='')
+    second_last_name = models.CharField(max_length=25, null=True, blank=True, default='')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -26,8 +26,8 @@ class Post(models.Model):
     author = models.ForeignKey(BaseUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     content = models.TextField(max_length=1200)
-    additional_information = models.TextField(max_length=200)
-    category = models.ForeignKey(BlogType, on_delete=models.CASCADE)
+    additional_information = models.TextField(max_length=200, null=True, blank=True, default='')
+    category = models.ForeignKey(BlogType, on_delete=models.CASCADE, null=True, blank=True, default='')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -40,9 +40,9 @@ class Post(models.Model):
 
 class Page(models.Model):
     name = models.CharField(max_length=15)
-    main_header = models.CharField(max_length=30)
-    page_title = models.CharField(max_length=20)
-    view_name = models.CharField(max_length=15)
+    main_header = models.CharField(max_length=30, default='', null=True, blank=True)
+    page_title = models.CharField(max_length=20, default='', null=True, blank=True)
+    view_name = models.CharField(max_length=15, default='', null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -64,6 +64,8 @@ class Logger(models.Model):
 
 class NavbarItem(models.Model):
     name = models.CharField(max_length=25)
+    onclick = models.CharField(max_length=25, default='', null=True, blank=True)
+    view = models.CharField(max_length=25, default='', null=True, blank=True)
     order = models.IntegerField()
 
     def __str__(self):

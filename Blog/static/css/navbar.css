@@ -16,3 +16,6 @@ a {
     text-decoration: none;
     color: #000;
 }
+li:nth-child(1) {
+    margin: 0 auto 0 0;
+}
