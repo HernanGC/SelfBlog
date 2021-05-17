@@ -2,6 +2,8 @@ from django.http import HttpResponse, HttpRequest, JsonResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect
 from .models import Page, Post, BaseUser, Logger
+
+import ast
 import json
 import logging
 import inspect
@@ -15,7 +17,7 @@ def index(request: HttpRequest) -> HttpResponse:
             return render_4xx(request)
         else:
             context = {}
-            page = Page.objects.get(name='Index')
+            page = Page.objects.get(name='index')
             posts = Post.objects.filter(author=BaseUser.objects.get(user=request.user))
             context['posts'] = posts
             context['page_data'] = page
@@ -30,7 +32,7 @@ def index(request: HttpRequest) -> HttpResponse:
 
 def details(request: HttpRequest, post_id: int):
     context = {}
-    page = Page.objects.get(name='Details')
+    page = Page.objects.get(name='details')
     post = Post.objects.get(pk=post_id)
     context['item'] = post
     context['page_data'] = page
@@ -38,13 +40,23 @@ def details(request: HttpRequest, post_id: int):
 
 
 def new(request):
-    return HttpResponse('OK')
+    if request.method == 'GET':
+        page = Page.objects.get(name='new')
+        return render(request, 'blog/new.html', {'page_data': page})
+    elif request.method == 'POST':
+        if not request.POST['title'] and request.POST['content']:
+            return render_4xx(request)
+        new_post = Post(author=BaseUser.objects.get(user=request.user), title=request.POST['title'], content=request.POST['content'])
+        new_post.save()
+        return redirect('index')
+    else:
+        return render_4xx(request)
+
 
 @csrf_protect
 def delete(request: HttpRequest, post_id: int):
     if request.method == 'POST' and request.headers['X-Csrftoken'] and 'csrftoken' in request.headers['Cookie']:
         Post.objects.get(pk=post_id).delete()
-        print(post_id)
         return JsonResponse({
             'success': 'true',
             'message': 'The post has been deleted!'

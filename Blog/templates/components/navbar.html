@@ -2,7 +2,7 @@
     <ul>
         {% if items %}
             {% for item in items %}
-            <li><a href="">{{ item.name }}</a></li>
+            <li><a href="{% if item.view %} {% url item.view %} {% endif %}">{{ item.name }}</a></li>
             {% endfor %}
         {% endif %}
     </ul>
