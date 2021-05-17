@@ -17,7 +17,7 @@
     <div class="container side-container">
         {% include 'components/side-content.html' %}
     </div>
-    <div class="container main-container">
+    <div class="container main-container" id="container-{{ page_data.name }}">
         {% block content %} {% endblock %}
     </div>
 </div>
