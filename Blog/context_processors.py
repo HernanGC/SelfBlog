@@ -9,7 +9,9 @@ def navbar_items(request):
 
 
 def sidebar_items(request):
-    content = models.Post.objects.filter(author=models.BaseUser.objects.get(user=request.user))
+    content = None
+    if request.user.is_authenticated:
+        content = models.Post.objects.filter(author=models.BaseUser.objects.get(user=request.user))
     return {
         'content': content
     }

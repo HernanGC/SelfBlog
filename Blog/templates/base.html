@@ -14,9 +14,9 @@
 <body>
 {% include 'components/navbar.html' %}
 <div id="root">
-    <div class="container side-container">
+    {% if content %}
         {% include 'components/side-content.html' %}
-    </div>
+    {% endif %}
     <div class="container main-container" id="container-{{ page_data.name }}">
         {% block content %} {% endblock %}
     </div>
