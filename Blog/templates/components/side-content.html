@@ -1,5 +1,5 @@
-{% for item in content %}
-    <div class="container side-container">
+<div class="container side-container">
+    {% for item in content %}
         <a href="{% url 'details' item.id %}"><p class="side-item">{{ item.title }}</p></a>
-    </div>
-{% endfor %}
+    {% endfor %}
+</div>
