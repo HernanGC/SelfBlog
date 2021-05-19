@@ -3,13 +3,6 @@ from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect
 from .models import Page, Post, BaseUser, Logger
 
-import ast
-import json
-import logging
-import inspect
-
-# logger = logging.getLogger('Error')
-
 
 def index(request: HttpRequest) -> HttpResponse:
     try:
