@@ -37,6 +37,13 @@ class Post(models.Model):
     def get_content(self):
         return self.content if len(self.content) < 300 else f'{self.content[:300]}...'
 
+    def update_post(self, title, content, category):
+        if title and content and category:
+            self.title = title
+            self.content = content
+            self.category = category
+            self.save()
+
 
 class Page(models.Model):
     name = models.CharField(max_length=15)

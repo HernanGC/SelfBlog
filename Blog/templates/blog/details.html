@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-    {% if content %}
-        <p>{{ item.title }}</p>
-        <p>{{ item.content }}</p>
-        <p>{{ item.author }}</p>
-        <button onclick="deletePost('{% url 'delete' item.id %}', '{% url 'index' %}')">Delete</button>
-        <button>Edit</button>
+    {% if post %}
+        <p>{{ post.title }}</p>
+        <p>{{ post.content }}</p>
+        <p>
+            <span>{{ post.author }}</span>
+            <span>{{ post.created_at }}</span>
+        </p>
+        <button onclick="deletePost('{% url 'delete' post.id %}', '{% url 'index' %}')">Delete</button>
+        <button onclick="window.location.href='{% url 'edit' post.id %}'" >Edit</button>
     {% endif %}
 {% endblock %}
