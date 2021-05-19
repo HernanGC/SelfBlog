@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if post %}
+        <form class="new-form" action="" method="post">
+            {% csrf_token %}
+            <label for="title">Title</label>
+            <input name="title" id="title" type="text" value="{{ post.title }}">
+            <label for="content">Content</label>
+            <textarea name="content" id="content" cols="40" rows="10">{{ post.content }}</textarea>
+            {% if categories %}
+                <select name="category" id="__post-categories">
+                    {% for category in categories %}
+                        <option value="{{ category.id }}" {% if category.id == post.category.id %} selected {% endif %}>{{ category.type }}</option>
+                    {% endfor %}
+                </select>
+            {% endif %}
+            <button type="submit">Save</button>
+        </form>
+    {% endif %}
+{% endblock %}

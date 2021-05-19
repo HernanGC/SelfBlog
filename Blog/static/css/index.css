@@ -13,7 +13,7 @@ div#root {
     padding: 1rem 2rem 2rem 2rem;
     height: 100%;
 }
-div#container-new {
+div#container-new, div#container-edit {
     display: flex;
     justify-content: center;
 }

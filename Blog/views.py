@@ -1,7 +1,9 @@
 from django.http import HttpResponse, HttpRequest, JsonResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect
-from .models import Page, Post, BaseUser, Logger
+from django.utils.html import escape
+from django.forms.models import model_to_dict
+from .models import Page, Post, BaseUser, Logger, BlogType
 
 
 def index(request: HttpRequest) -> HttpResponse:
@@ -27,19 +29,19 @@ def details(request: HttpRequest, post_id: int):
     context = {}
     page = Page.objects.get(name='details')
     post = Post.objects.get(pk=post_id)
-    context['item'] = post
+    context['post'] = post
     context['page_data'] = page
     return render(request, 'blog/details.html', context)
 
 
-def new(request):
+def new(request) -> HttpResponse:
     if request.method == 'GET':
         page = Page.objects.get(name='new')
         return render(request, 'blog/new.html', {'page_data': page})
     elif request.method == 'POST':
-        if not request.POST['title'] and request.POST['content']:
+        if not request.POST['title'] and request.POST['content'] or not request.user.is_authenticated:
             return render_4xx(request)
-        new_post = Post(author=BaseUser.objects.get(user=request.user), title=request.POST['title'], content=request.POST['content'])
+        new_post = Post(author=BaseUser.objects.get(user=request.user), title=escape(request.POST['title']), content=escape(request.POST['content']))
         new_post.save()
         return redirect('index')
     else:
@@ -47,7 +49,7 @@ def new(request):
 
 
 @csrf_protect
-def delete(request: HttpRequest, post_id: int):
+def delete(request: HttpRequest, post_id: int) -> JsonResponse:
     if request.method == 'POST' and request.headers['X-Csrftoken'] and 'csrftoken' in request.headers['Cookie']:
         Post.objects.get(pk=post_id).delete()
         return JsonResponse({
@@ -55,6 +57,24 @@ def delete(request: HttpRequest, post_id: int):
             'message': 'The post has been deleted!'
         })
     return JsonResponse({'res': 'YES'})
+
+
+def edit(request: HttpRequest, post_id: int) -> HttpResponse:
+    context = {'page_data': Page.objects.get(name='edit')}
+    if request.method == 'GET':
+        post = Post.objects.get(id=post_id)
+        categories = BlogType.objects.all()
+        context['post'] = post
+        context['categories'] = categories
+        return render(request, 'blog/edit.html', context)
+    elif request.method == 'POST':
+        if not request.POST['title'] and request.POST['content'] or not request.user.is_authenticated:
+            return render_4xx(request)
+        post = Post.objects.get(id=post_id)
+        post.update_post(escape(request.POST['title']), escape(request.POST['content']), BlogType.objects.get(id=escape(request.POST['category'])))
+        return redirect('details', post_id)
+    else:
+        return render_4xx(request)
 
 
 def render_4xx(request: HttpRequest, message: str = 'The request could not be processed, please try again later.') -> HttpResponse:
