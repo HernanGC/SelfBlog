@@ -1,11 +1,25 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+{% endblock %}
 {% block content %}
+<div class="sub-container form-container card">
     <form class="new-form" action="" method="post">
         {% csrf_token %}
         <label for="title">Title</label>
         <input type="text" id="title" name="title">
         <label for="content">Content</label>
-        <textarea name="content" id="content" cols="40" rows="10"></textarea>
+        <textarea name="content" id="content" rows="25"></textarea>
+        {% if categories %}
+                <label for="__post-categories">Category</label>
+                <select name="category" id="__post-categories">
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.type }}</option>
+                    {% endfor %}
+                </select>
+            {% endif %}
         <button type="submit">Create</button>
     </form>
+</div>
 {% endblock %}

@@ -1,13 +1,21 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/details.css' %}">
+{% endblock %}
 {% block content %}
-    {% if post %}
-        <p class="post-title">{{ post.title }}</p>
-        <p class="post-content">{{ post.content }}</p>
-        <p>
-            <span>{{ post.author }}</span>
-            <span>{{ post.created_at }}</span>
-        </p>
-        <button onclick="deletePost('{% url 'delete' post.id %}', '{% url 'index' %}')">Delete</button>
-        <button onclick="window.location.href='{% url 'edit' post.id %}'" >Edit</button>
-    {% endif %}
+    <div class="sub-container view-container card">
+        {% if post %}
+            <p class="post-title">{{ post.title }}</p>
+            <p class="post-content">{{ post.content }}</p>
+            <p>
+                <span>{{ post.author }}</span>
+                <span>{{ post.created_at }}</span>
+            </p>
+        <div class="detail-buttons">
+            <button onclick="deletePost('{% url 'delete' post.id %}', '{% url 'index' %}')">Delete</button>
+            <button onclick="window.location.href='{% url 'edit' post.id %}'" >Edit</button>
+        </div>
+        {% endif %}
+    </div>
 {% endblock %}

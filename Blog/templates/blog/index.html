@@ -3,7 +3,7 @@
 <div class="index-container align-center">
     {% if posts %}
         {% for post in posts %}
-            <div class="blog-post" onclick="window.location.href='{% url 'details' post.id %}'">
+            <div class="blog-post card" onclick="window.location.href='{% url 'details' post.id %}'">
                 <h4>{{ post.title }}</h4>
                 <p>{{ post.get_content }}</p>
                 <span>{{ post.author }}</span>

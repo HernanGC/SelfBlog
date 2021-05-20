@@ -18,9 +18,6 @@ def index(request: HttpRequest) -> HttpResponse:
             context['page_data'] = page
             return render(request, 'blog/index.html', context)
     except Exception as PythonException:
-        # log = Logger(PythonException, type(PythonException), PythonException.args, inspect.stack())
-        # log.save()
-        # logger.exception(PythonException)
         print(PythonException)
         return render_4xx(request)
 
@@ -36,12 +33,21 @@ def details(request: HttpRequest, post_id: int):
 
 def new(request) -> HttpResponse:
     if request.method == 'GET':
-        page = Page.objects.get(name='new')
-        return render(request, 'blog/new.html', {'page_data': page})
+        context = {
+            'page_data': Page.objects.get(name='new'),
+            'categories': BlogType.objects.all()
+        }
+        return render(request, 'blog/new.html', context)
     elif request.method == 'POST':
         if not request.POST['title'] and request.POST['content'] or not request.user.is_authenticated:
             return render_4xx(request)
-        new_post = Post(author=BaseUser.objects.get(user=request.user), title=escape(request.POST['title']), content=escape(request.POST['content']))
+        print(request.POST)
+        new_post = Post(
+            author=BaseUser.objects.get(user=request.user),
+            title=escape(request.POST['title']),
+            content=escape(request.POST['content']),
+            category=BlogType.objects.get(id=escape(request.POST['category']))
+        )
         new_post.save()
         return redirect('index')
     else:
