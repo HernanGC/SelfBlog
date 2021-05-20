@@ -1,0 +1,11 @@
+div.view-container {
+    align-items: center;
+    flex-direction: column;
+}
+p.post-content {
+    white-space: pre-wrap;
+    font-size: 18px;
+}
+p.post-title {
+    font-size: 22px;
+}
