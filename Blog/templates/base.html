@@ -17,8 +17,10 @@
     {% if content %}
         {% include 'components/side-content.html' %}
     {% endif %}
-    <div class="container main-container" id="container-{{ page_data.name }}">
-        {% block content %} {% endblock %}
+    <div class="main-container" id="container-{{ page_data.name }}">
+        <div class="sub-container">
+            {% block content %} {% endblock %}
+        </div>
     </div>
 </div>
 

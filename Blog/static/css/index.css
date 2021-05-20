@@ -57,8 +57,26 @@ form.new-form {
 }
 form.new-form > input[name="title"] {
     height: 2rem;
-    font-size: 19px;
+    font-size: 16px;
 }
 form.new-form * {
     margin: 1% 0 0 0;
+}
+div.sub-container {
+    background-color: aliceblue;
+    padding: 2rem;
+    border: 1px solid #b8b4b4;
+    border-radius: 8px;
+    width: 65%;
+    margin: auto;
+    line-height: 16px;
+    display: flex;
+    justify-content: center;
+}
+p.post-content {
+    white-space: pre-wrap;
+    font-size: 18px;
+}
+p.post-title {
+    font-size: 22px;
 }
