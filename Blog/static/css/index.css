@@ -26,9 +26,9 @@ div#container-new, div#container-edit {
     transition: 0.2s;
 }
 .blog-post:hover {
-    transform: scale(1.01);
+    /* transform: scale(1.01); */
     cursor: pointer;
-    box-shadow: 4px 4px 5px #bdc7d0;
+    box-shadow: 4px 4px 5px #ced6de;
 }
 .side-container {
     width: 10%;
@@ -56,4 +56,19 @@ div.sub-container {
     border: 1px solid #e1dede;
     border-radius: 8px;
     background-color: aliceblue;
+}
+button {
+    width: 6rem;
+    height: 2rem;
+    margin: 5px;
+    background-color: #c9f0df;
+    border: 1px solid #b1ecbd;
+    border-radius: 6px;
+}
+button:hover {
+    background-color: #aee6cd;
+    cursor: pointer;
+}
+.buttons-z {
+    align-self: flex-end;
 }
