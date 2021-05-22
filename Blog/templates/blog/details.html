@@ -13,8 +13,8 @@
                 <span>{{ post.created_at }}</span>
             </p>
         <div class="detail-buttons">
-            <button onclick="deletePost('{% url 'delete' post.id %}', '{% url 'index' %}')">Delete</button>
             <button onclick="window.location.href='{% url 'edit' post.id %}'" >Edit</button>
+            <button onclick="deletePost('{% url 'delete' post.id %}', '{% url 'index' %}')">Delete</button>
         </div>
         {% endif %}
     </div>
