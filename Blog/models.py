@@ -22,12 +22,22 @@ class BlogType(models.Model):
         return self.type
 
 
+class Folder(models.Model):
+    name = models.CharField(max_length=25)
+    description = models.TextField(max_length=250)
+    child_folder = models.ManyToManyField('self', null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Post(models.Model):
     author = models.ForeignKey(BaseUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     content = models.TextField(max_length=1200)
     additional_information = models.TextField(max_length=200, null=True, blank=True, default='')
     category = models.ForeignKey(BlogType, on_delete=models.CASCADE, null=True, blank=True, default='')
+    folder = models.ForeignKey(Folder, on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

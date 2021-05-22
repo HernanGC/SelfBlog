@@ -10,8 +10,14 @@
             {% csrf_token %}
             <label for="title">Title</label>
             <input name="title" id="title" type="text" value="{{ post.title }}" autofocus>
+            {% if errors.title %}
+                <p class="error-message">{{ errors.title }}</p>
+            {% endif %}
             <label for="content">Content</label>
             <textarea name="content" id="content" rows="25">{{ post.content }}</textarea>
+            {% if errors.content %}
+                <p class="error-message">{{ errors.content }}</p>
+            {% endif %}
             {% if categories %}
                 <select name="category" id="__post-categories">
                     {% for category in categories %}

@@ -77,6 +77,11 @@ def edit(request: HttpRequest, post_id: int) -> HttpResponse:
         if not request.POST['title'] and request.POST['content'] or not request.user.is_authenticated:
             return render_4xx(request)
         post = Post.objects.get(id=post_id)
+        if len(request.POST['title']) < 3:
+            context['post'] = post
+            context['errors'] = {'title': 'Title must be at least 3 characters long.'}
+            context['categories'] = BlogType.objects.all()
+            return render(request, 'blog/edit.html', context)
         post.update_post(escape(request.POST['title']), escape(request.POST['content']), BlogType.objects.get(id=escape(request.POST['category'])))
         return redirect('details', post_id)
     else:
