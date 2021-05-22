@@ -34,10 +34,13 @@ class Post(models.Model):
     def __str__(self):
         return f'{self.title} - {self.author.first_name}'
 
-    def get_content(self):
+    def get_content(self) -> str:
         return self.content if len(self.content) < 300 else f'{self.content[:300]}...'
 
-    def update_post(self, title, content, category):
+    def get_title(self) -> str:
+        return self.title if len(self.title) < 25 else f'{self.title[:24]}...'
+
+    def update_post(self, title: str, content: str, category: BlogType):
         if title and content and category:
             self.title = title
             self.content = content
