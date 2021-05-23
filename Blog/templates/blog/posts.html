@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/posts.css' %}">
+{% endblock %}
 {% block content %}
     {% if posts %}
         <div class="index-header">
             <h2 class="main-header">{{ page_data.main_header }}</h2>
-            <a class="more-posts" href="{% url 'posts' %}">See more</a>
         </div>
-        <div class="index-container align-center">
+        <div class="index-container align-center" id="posts-container">
             {% for post in posts %}
                 <div class="blog-post card" onclick="window.location.href='{% url 'details' post.id %}'">
                     <h4>{{ post.title }}</h4>
@@ -16,7 +18,12 @@
                 </div>
             {% endfor %}
         </div>
+    <img src="{% static 'img/loading-cube.svg' %}" alt="Loading cube" width="120" height="120" id="loading-img">
+    <button class="card see-more" id="see-more-btn">More</button>
     {% else %}
         <h1>No posts. Create a new one!</h1>
     {% endif %}
+{% endblock %}
+{% block script %}
+<script type="module" src="{% static 'js/posts.js' %}"></script>
 {% endblock %}

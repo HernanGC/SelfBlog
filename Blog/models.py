@@ -25,7 +25,7 @@ class BlogType(models.Model):
 class Folder(models.Model):
     name = models.CharField(max_length=25)
     description = models.TextField(max_length=250)
-    child_folder = models.ManyToManyField('self', null=True, blank=True)
+    child_folder = models.ManyToManyField('self', blank=True)
 
     def __str__(self):
         return self.name
