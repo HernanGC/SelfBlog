@@ -1,0 +1,11 @@
+.see-more {
+    margin: 1% 0 0 46%;
+    width: 5%;
+    height: 3rem;
+    transition: 1s;
+}
+img#loading-img {
+    display: none;
+    margin: 0 0 0 44%;
+    transition: 1s;
+}

@@ -8,6 +8,7 @@ div#root {
     display: flex;
     align-items: flex-start;
     height: 85%;
+    overflow: overlay;
 }
 .container {
     padding: 1rem 2rem 2rem 2rem;
@@ -16,22 +17,23 @@ div#root {
 div#container-new, div#container-edit {
     display: flex;
     justify-content: center;
-    /* height: 100%; */
 }
 .blog-post {
-    padding: 1rem;
-    width: 29%;
+    width: 28%;
     display: inline-block;
-    margin: 0 2rem 1rem 0;
+    margin: 1rem;
     transition: 0.2s;
     box-shadow: 4px 4px 5px #dbe2e7;
 }
-.blog-post:hover {
-    /* transform: scale(1.01); */
+.blog-post:hover, .see-more:hover {
     cursor: pointer;
     background-color: #d7e7e0;
-    /* box-shadow: 4px 4px 5px #ced6de; */
-    /* box-shadow: none; */
+}
+.card {
+    border: 1px solid #e1dede;
+    border-radius: 8px;
+    background-color: aliceblue;
+    padding: 1rem;
 }
 .side-container {
     width: 10%;
@@ -44,21 +46,15 @@ div#container-new, div#container-edit {
     flex-wrap: wrap;
     flex-direction: row;
     align-content: flex-start;
-    padding: 1rem 2rem 2rem 2rem;
+    justify-content: space-between;
 }
 div.sub-container {
     padding: 2rem;
     width: 65%;
-    /* height: 85%; */
     margin: auto;
     line-height: 16px;
     display: flex;
     justify-content: center;
-}
-.card {
-    border: 1px solid #e1dede;
-    border-radius: 8px;
-    background-color: aliceblue;
 }
 button {
     width: 6rem;
@@ -75,12 +71,36 @@ button:hover {
 .buttons-z {
     align-self: flex-end;
 }
-select {
+select, input, textarea {
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
-    width: 40%;
-    height: 2rem;
     border-radius: 4px;
     border: 1px solid #beb5b5;
     background: #fff;
+}
+select {
+    width: 40%;
+    height: 2rem;
+}
+.index-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+a.more-posts {
+    margin: 0 3rem 0 0;
+    font-size: 12px;
+    border: 1px solid #e1dede;
+    padding: 1em;
+    background-color: aliceblue;
+}
+a.more-posts:hover {
+    box-shadow: 4px 4px 5px #dbe2e7;
+    cursor: pointer;
+}
+.main-header {
+    color: #69747e;
+}
+h2.main-header {
+    margin: 0 0 0 2rem;
 }

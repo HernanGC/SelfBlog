@@ -14,8 +14,11 @@
             </p>
         <div class="detail-buttons">
             <button onclick="window.location.href='{% url 'edit' post.id %}'" >Edit</button>
-            <button onclick="deletePost('{% url 'delete' post.id %}', '{% url 'index' %}')">Delete</button>
+            <button id="delete-button" data-delete="{% url 'delete' post.id %}">Delete</button>
         </div>
         {% endif %}
     </div>
+{% endblock %}
+{% block script %}
+    <script type="module" src="{% static 'js/details.js' %}"></script>
 {% endblock %}
