@@ -18,7 +18,7 @@
                 </div>
             {% endfor %}
         </div>
-    <img src="{% static 'img/loading-cube.svg' %}" alt="Loading cube" width="120" height="120" id="loading-img">
+    <img src="{% static 'img/loading-cube.svg' %}" alt="Loading cube" width="120" height="120" id="loading-img" loading="lazy">
     <button class="card see-more" id="see-more-btn">More</button>
     {% else %}
         <h1>No posts. Create a new one!</h1>
