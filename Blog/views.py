@@ -106,8 +106,23 @@ def edit(request: HttpRequest, post_id: int) -> HttpResponse:
         return render_4xx(request)
 
 
-#Ajax
+def search(request: HttpRequest) -> HttpResponse:
+    if request.method != 'GET':
+        return render_4xx(request, message='Oops! Wrong request!')
+    search_input = request.GET.get('s', '')
+    if search_input:
+        posts_list = Post.objects.filter(title__icontains=search_input)
+        if posts_list:
+            context = {
+                'posts': posts_list,
+                'page_data': Page.objects.get(name='search')
+            }
+            return render(request, 'blog/search.html', context)
+        return render_4xx(request, message='No posts found! Try something else!')
+    return render_4xx(request, message='Oops! Something went wrong while processing the request, try again.')
 
+
+#Ajax
 def get_posts(request):
     if request.method == 'GET' and int(request.GET.get('current', 0)) > 0:
         initial_posts = int(request.GET.get('current'))
