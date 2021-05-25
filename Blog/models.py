@@ -3,6 +3,24 @@ from django.contrib.auth.models import User
 from django.utils.html import escape
 
 
+def html_decode(s):
+    """
+    Returns the ASCII decoded version of the given HTML string. This does
+    NOT remove normal HTML tags like <p>.
+    """
+    html_codes = (
+        ("'", '&#39;'),
+        ('"', '&quot;'),
+        ('>', '&gt;'),
+        ('<', '&lt;'),
+        ('&', '&amp;'),
+        ("'", '&#x27;')
+    )
+    for code in html_codes:
+        s = s.replace(code[1], code[0])
+    return s
+
+
 class BaseUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=25, null=True)
@@ -45,11 +63,17 @@ class Post(models.Model):
     def __str__(self):
         return f'{self.title} - {self.author.first_name}'
 
-    def get_content(self) -> str:
-        return escape(self.content if len(self.content) < 300 else f'{self.content[:300]}...')
+    def get_title(self):
+        return html_decode(self.title)
 
-    def get_title(self) -> str:
-        return escape(self.title if len(self.title) < 25 else f'{self.title[:24]}...')
+    def get_content(self):
+        return html_decode(self.content)
+
+    def get_content_index(self) -> str:
+        return html_decode(self.content if len(self.content) < 300 else f'{self.content[:300]}...')
+
+    def get_title_index(self) -> str:
+        return html_decode(self.title if len(self.title) < 25 else f'{self.title[:24]}...')
 
     def update_post(self, title: str, content: str, category: BlogType):
         if title and content and category:

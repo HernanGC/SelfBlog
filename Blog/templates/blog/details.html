@@ -6,8 +6,8 @@
 {% block content %}
     <div class="sub-container view-container card">
         {% if post %}
-            <p class="post-title">{{ post.title }}</p>
-            <p class="post-content">{{ post.content }}</p>
+            <p class="post-title">{{ post.get_title }}</p>
+            <p class="post-content">{{ post.get_content }}</p>
             <p>
                 <span>{{ post.author }}</span>
                 <span>{{ post.created_at }}</span>

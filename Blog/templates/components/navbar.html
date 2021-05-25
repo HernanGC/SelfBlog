@@ -1,9 +1,11 @@
 <div id="navbar">
     <ul>
-        {% if items %}
-            {% for item in items %}
-            <li><a href="{% if item.view %} {% url item.view %} {% endif %}">{{ item.name }}</a></li>
-            {% endfor %}
-        {% endif %}
+        <li class="navbar-btn"><a href="{% url 'index' %}">Blog</a></li>
+        <li>
+            <form class="nav-search" action="/search">
+            <input name="s" id="search-input" type="text" placeholder="Search posts...">
+        </form>
+        </li>
+        <li class="navbar-btn"><a href="{% url 'new' %}">New</a></li>
     </ul>
 </div>

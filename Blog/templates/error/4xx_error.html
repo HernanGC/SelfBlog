@@ -1,4 +1,12 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/error.css' %}">
+{% endblock %}
 {% block content %}
-    <ps>Error</ps>
+    {% if message %}
+    <div class="error-container card">
+        <p>{{ message }}</p>
+    </div>
+    {% endif %}
 {% endblock %}

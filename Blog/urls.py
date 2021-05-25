@@ -9,6 +9,7 @@ urlpatterns = [
     path('post/<int:post_id>', views.details, name='details'),
     path('delete/<int:post_id>', views.delete, name='delete'),
     path('edit/<int:post_id>', views.edit, name='edit'),
+    path('search', views.search, name='search'),
     #Ajax
     path('get-posts', views.get_posts, name='get_posts'),
 ]

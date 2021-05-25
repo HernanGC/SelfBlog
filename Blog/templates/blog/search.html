@@ -1,10 +1,8 @@
 {% extends 'base.html' %}
-{% load static %}
 {% block content %}
-    {% if posts %}
+{% if posts %}
         <div class="index-header">
             <h2 class="main-header">{{ page_data.main_header }}</h2>
-            <a class="more-posts" href="{% url 'new' %}">New post</a>
             <a class="more-posts" href="{% url 'posts' %}">See more</a>
         </div>
         <div class="index-container align-center">
