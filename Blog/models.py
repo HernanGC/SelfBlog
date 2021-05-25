@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.html import escape
 
 
 class BaseUser(models.Model):
@@ -45,10 +46,10 @@ class Post(models.Model):
         return f'{self.title} - {self.author.first_name}'
 
     def get_content(self) -> str:
-        return self.content if len(self.content) < 300 else f'{self.content[:300]}...'
+        return escape(self.content if len(self.content) < 300 else f'{self.content[:300]}...')
 
     def get_title(self) -> str:
-        return self.title if len(self.title) < 25 else f'{self.title[:24]}...'
+        return escape(self.title if len(self.title) < 25 else f'{self.title[:24]}...')
 
     def update_post(self, title: str, content: str, category: BlogType):
         if title and content and category:

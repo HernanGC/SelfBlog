@@ -10,6 +10,9 @@ div#root {
     height: 85%;
     overflow: overlay;
 }
+p {
+    white-space: pre-wrap;
+}
 .container {
     padding: 1rem 2rem 2rem 2rem;
     height: 100%;

@@ -57,7 +57,7 @@ def new(request) -> HttpResponse:
     elif request.method == 'POST':
         if not request.POST['title'] and request.POST['content'] or not request.user.is_authenticated:
             return render_4xx(request)
-        print(request.POST)
+        print(request.POST['content'])
         new_post = Post(
             author=BaseUser.objects.get(user=request.user),
             title=escape(request.POST['title']),
