@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect
 from django.utils.html import escape
 from django.forms.models import model_to_dict
-from .models import Page, Post, BaseUser, Logger, BlogType
+from .models import Page, Post, User, BaseUser, Logger, BlogType
 
 
 def index(request: HttpRequest) -> HttpResponse:
@@ -100,7 +100,8 @@ def edit(request: HttpRequest, post_id: int) -> HttpResponse:
             context['errors'] = {'title': 'Title must be at least 3 characters long.'}
             context['categories'] = BlogType.objects.all()
             return render(request, 'blog/edit.html', context)
-        post.update_post(escape(request.POST['title']), escape(request.POST['content']), BlogType.objects.get(id=escape(request.POST['category'])))
+        post.update_post(escape(request.POST['title']), escape(request.POST['content']),
+                         BlogType.objects.get(id=escape(request.POST['category'])))
         return redirect('details', post_id)
     else:
         return render_4xx(request)
@@ -122,18 +123,53 @@ def search(request: HttpRequest) -> HttpResponse:
     return render_4xx(request, message='Oops! Something went wrong while processing the request, try again.')
 
 
-#Ajax
+def register(request: HttpRequest) -> HttpResponse:
+    if request.method == 'GET':
+        context = {
+            'page_data': Page.objects.get(name='register')
+        }
+        return render_4xx(request, 'blog/register.phtml', context)
+    elif request.method == 'POST':
+        # todo: usar un form
+        if request.
+    else:
+        return render_4xx(request, message='Error al ingresar al formulario de registro.')
+    new_user = User.objects.create(
+        username='test',
+        first_name='test1',
+        last_name='test2',
+        email='test3',
+        password='test4'
+    )
+    new_user.save()
+    return JsonResponse({
+        'data': model_to_dict(new_user)
+    })
+
+
+def validate_request(request: HttpRequest) -> bool or dict:
+    return request.POST['username'] \
+           and request.POST['first_name'] \
+           and request.POST['last_name'] \
+           and request.POST['email'] \
+           and request.POST['password']
+
+
+def login(request: HttpRequest) -> HttpResponse:
+
+
+# Ajax
+
 def get_posts(request):
-    if request.method == 'GET' and int(request.GET.get('current', 0)) > 0:
-        initial_posts = int(request.GET.get('current'))
-        print(request.user)
-        all_posts = Post.objects.filter(author=BaseUser.objects.get(user=request.user)).order_by('-id')[initial_posts:initial_posts+9].values()
+    current_posts = int(request.GET.get('current'))
+    initial_posts = int(request.GET.get('initial'))
+    if request.method == 'GET' and current_posts and initial_posts:
+        all_posts = Post.objects.filter(author=BaseUser.objects.get(user=request.user)).order_by('-id')[
+                    current_posts:current_posts + initial_posts].values()
         if all_posts:
-            print('cas')
             return JsonResponse({
                 'posts': list(all_posts)
             })
-        print('asdasds')
         return JsonResponse({
             'error': 'error'
         })
@@ -146,7 +182,8 @@ def get_posts(request):
     })
 
 
-def render_4xx(request: HttpRequest, message: str = 'The request could not be processed, please try again later.') -> HttpResponse:
+def render_4xx(request: HttpRequest,
+               message: str = 'The request could not be processed, please try again later.') -> HttpResponse:
     return render(request, 'error/4xx_error.html', {'message': message})
 
 

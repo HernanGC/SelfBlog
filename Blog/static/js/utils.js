@@ -17,8 +17,9 @@ export const getRequest = async (url, headers) => {
 export const getCookie = function (csrfCookie = 'csrftoken') {
     let cookies = document.cookie.split(';');
     for (let cookie of cookies) {
-        if (cookie.split('=')[0].trim() === csrfCookie) {
-            return cookie.split('=')[1].trim();
+        let cookieMatch = cookie.split('=')[0].trim();
+        if (cookieMatch === csrfCookie) {
+            return cookieMatch;
         }
     }
     return false;

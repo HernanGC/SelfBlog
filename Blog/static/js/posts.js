@@ -3,24 +3,27 @@ import {getCookie, postRequest, getRequest, toggleDisplay} from './utils.js';
 const morePostsButton = document.getElementById('see-more-btn');
 const loadingImg = document.getElementById('loading-img');
 const parentDiv = document.getElementById('posts-container');
-let initialPosts = 9;
-let currentPosts = 9;
+
+const initialPosts = document.querySelectorAll('.blog-post').length;
+let currentPosts = initialPosts;
 
 const getMorePosts = function () {
     console.log(morePostsButton);
-    const initialDisplayBtn = morePostsButton.style.display;
-    const initialDisplayImg = loadingImg.style.display;
+    // const initialDisplayBtn = morePostsButton.style.display;
+    // const initialDisplayImg = loadingImg.style.display;
     toggleDisplay(morePostsButton, 'none');
     toggleDisplay(loadingImg, 'initial');
     window.scrollTo(0,document.body.scrollHeight);
     setTimeout(function () {
-        getRequest(`/get-posts?current=${currentPosts}`, {'X-CSRFToken': getCookie()})
+        getRequest(`/get-posts?current=${currentPosts}&initial=${initialPosts}`, {'X-CSRFToken': getCookie()})
         .then(data => {
             if (data['posts']) {
                 currentPosts += data['posts'].length; 
                 for (let post of data['posts']) {
                     createPostElement(post.id, post.title, post.content, 'Hernan G', post.created_at);
                 }
+            } else if (data['error']) {
+                window.alert(data['error']);
             }
             toggleDisplay(morePostsButton, 'initial');
             toggleDisplay(loadingImg, 'none');
